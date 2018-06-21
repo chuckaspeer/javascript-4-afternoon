@@ -21,16 +21,14 @@ function outer() {
   Above you're given a function that returns another function which has a closure over the name variable.
   Invoke outer saving the return value into another variable called 'inner'.
 */
-  
 // Code Here
-
-
+var inner = outer();
 
 //Once you do that, invoke inner.
 
 //Code Here
 
-
+inner();
 
 ////////// PROBLEM 2 //////////
 
@@ -40,7 +38,7 @@ function callFriend(name) {
     return 'Calling ' + name + ' at ' + number
   }
   return dial;
-}
+};
 // Do not edit the code above.
 
 /*
@@ -52,7 +50,9 @@ function callFriend(name) {
 */
 
 //Code Here
+var callJake = callFriend("Jake");
 
+//callFriend(435-215-9248);
 
 
 ////////// PROBLEM 3 //////////
@@ -63,6 +63,12 @@ function callFriend(name) {
 
 //Code Here
 
+function makeCounter(){
+  var counter = 0;
+  return function (){
+    return counter +=1;
+  };
+}
 
 
 //Uncomment this once you make your function
@@ -86,10 +92,14 @@ function callFriend(name) {
 */
 
 function counterFactory(value) {
-  // Code here.
-
+  
   return {
-
+    inc: function (){
+      return value += 1;
+    },
+dec: function (){
+  return value -= 1;
+}
   };
 }
 
@@ -111,11 +121,14 @@ counter = counterFactory(10);
 
 function motivation( firstname, lastname ) {
   var welcomeText = "You're doing awesome, keep it up";
-
+return function message(){
+  return welcomeText +' '+ firstname + ' ' + lastname + ".";
+  
+};
   // code message function here.
 
   //Uncommment this to return the value of your message function
-  //return message;
+  return message();
 }
 
 var greeting = motivation('Billy', 'Bob'); // 'You're doing awesome keep it up Billy Bob.
@@ -144,7 +157,11 @@ var module = (function() {
   // outside our lexical scope
   return {
     // Code here.
+    publicMethod: function(){
+      return privateMethod();
+    }
   };
+   
 })();
 
 
@@ -162,9 +179,21 @@ function secretNumber() {
   var secret = 143;
 
   return {
-    // Code here
-  };
+  
+    addToSecret : function(num){
+      var total = secret += num
+      console.log(total)
+      return total
+    },
+    takeAwayFromSecret: function(num){
+      var total = secret -= num 
+      return total
+    }
+  }
 }
+var secret = secretNumber;
+secret.addToSecret(10);
+secret.takeAwayFromSecret(10)
 
 
 
@@ -189,8 +218,9 @@ function secretNumber() {
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
     setTimeout(function() {
-      console.log(i);
+     console.log(i);
     }, i * 1000);
   }
 }
+var inner = timeOutCounter();
 timeOutCounter();
